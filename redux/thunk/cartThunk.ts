@@ -21,6 +21,7 @@ export interface CartResponse {
     total: number;
     discountPercentage: number;
     discountedPrice: number;
+    thumbnail: string;
   }[];
   total: number;
   discountedTotal: number;
@@ -36,6 +37,7 @@ export interface UserCart {
   userId: number;
   totalProducts: number;
   totalQuantity: number;
+  thumbnail : string;
 }
 
 interface GetCartResponse {
@@ -54,7 +56,7 @@ export interface CartProduct {
   total: number;
   discountPercentage: number;
   discountedPrice: number;
-  thumbnail: string
+  thumbnail: string;
 }
 
 // Add to Cart Thunk

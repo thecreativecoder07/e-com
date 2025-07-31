@@ -97,6 +97,7 @@ const cartSlice = createSlice({
                 quantity: existing.quantity + p.quantity,
                 total: existing.total + p.total,
                 discountedPrice: existing.discountedPrice + p.discountedPrice,
+                thumbnail: existing.thumbnail
               });
             } else {
               updatedProductsMap.set(p.id, p);

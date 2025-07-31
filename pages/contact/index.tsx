@@ -32,7 +32,7 @@ const ContactPage = () => {
             <div className="card border-0 shadow-sm">
               <div className="card-body p-4">
                 <h2 className="mb-4">Send Us a Message</h2>
-                <form>
+                <form onSubmit={(e)=> e.preventDefault()}>
                   <div className="mb-3">
                     <label htmlFor="name" className="form-label">Your Name</label>
                     <input type="text" className="form-control" id="name" required />
