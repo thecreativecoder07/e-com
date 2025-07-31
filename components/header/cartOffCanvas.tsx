@@ -106,7 +106,7 @@ const CartOffcanvas = () => {
                                                                 <button onClick={() => updateQty(item.id, item.quantity + 1)} className="quantity-btn">+</button>
                                                             </div>
                                                         </div>
-                                                        <img src={item.thumbnail} alt="" style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
+                                                        <img src={item?.thumbnail} alt="" style={{ width: '150px', height: '150px', objectFit: 'cover' }} />
                                                     </div>
                                                 </div>
                                                 <div className="item-actions">

@@ -54,6 +54,7 @@ export interface CartProduct {
   total: number;
   discountPercentage: number;
   discountedPrice: number;
+  thumbnail: string
 }
 
 // Add to Cart Thunk
