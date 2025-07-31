@@ -558,6 +558,9 @@ button svg {
 }
 
 @media (max-width: 400px) {
+  .offcanvas-container {
+    width: 100% !important;
+  }
   .cart-item {
     flex-direction: column;
   }
