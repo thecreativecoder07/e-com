@@ -1,0 +1,613 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary: #9457f6;
+  --secondary: #fdc651;
+  --light: #f8f9fa;
+  --dark: #212529;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fafafa;
+}
+
+button svg {
+  height: 22px !important;
+  width: 22px !important;
+}
+
+.cart-button {
+  border: none;
+  background: #fff;
+  outline: none;
+}
+
+.offcanvas-overlay {
+  background-color: #00000080;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99;
+  right: 0;
+}
+
+.offcanvas-container {
+  background: #fff;
+  width: 450px;
+  float: inline-end;
+  height: 100%;
+  padding: 20px;
+  z-index: 99;
+  overflow-y: auto;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.quantity-btn {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  background-color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+  background-color: #f8f9fa;
+}
+
+.quantity {
+  width: 40px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.loading-spinner {
+  display: inline-block;
+  position: relative;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.spinner-inner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.coupon-section {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.coupon-section h5 {
+  margin-bottom: 0.75rem;
+  color: #212529;
+}
+
+.coupon-input {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.coupon-input input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.apply-coupon {
+  padding: 0.5rem 1rem;
+  background-color: #fdc651;
+  color: #212529;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.apply-coupon:hover {
+  background-color: #f5b73d;
+}
+
+/* Summary Rows */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.discount-row {
+  color: #28a745;
+  /* Green for discount */
+}
+
+.total-row {
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-bottom: none;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0;
+}
+
+
+.container-lg h2 {
+  color: var(--dark);
+  font-weight: 700;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.container-lg h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-wrapper {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  height: 100%;
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  border: none;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: contain;
+  width: 100%;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .card-img-top {
+  transform: scale(1.03);
+}
+
+.card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title {
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 0.75rem;
+}
+
+.card-subtitle {
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.card-text {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  background-color: white;
+  border: 1px solid #dee2e6;
+  color: var(--primary);
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.pagination button.active-page {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-primary:hover {
+  background-color: #8344e5;
+  border-color: #8344e5;
+}
+
+.btn-outline-primary {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.badge.bg-secondary {
+  background-color: var(--secondary) !important;
+  color: var(--dark);
+}
+
+.price {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.rating {
+  background-color: rgba(253, 198, 81, 0.2);
+  color: #e6a328;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: white;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: var(--primary) !important;
+}
+
+.nav-link {
+  font-weight: 500;
+  color: var(--dark) !important;
+}
+
+.nav-link:hover {
+  color: var(--primary) !important;
+}
+
+.btn-cart {
+  background-color: var(--secondary);
+  color: var(--dark);
+  font-weight: 600;
+  border: none;
+}
+
+.btn-cart:hover {
+  background-color: #f5b73d;
+  color: var(--dark);
+}
+
+/* Footer styles */
+.footer {
+  background: linear-gradient(135deg, var(--primary), #7d3ae6);
+  color: white;
+  padding: 3rem 0;
+}
+
+.footer h5 {
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.footer h5::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--secondary);
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: var(--secondary);
+  text-decoration: none;
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+  background-color: var(--secondary);
+  color: var(--dark);
+}
+
+.categories-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  list-style: none;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.categories-list li{
+  background: var(--primary);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
+
+.cart-button{
+    border: none;
+    background: #fff;
+    outline: none;
+}
+.offcanvas-overlay{
+    background-color: #00000080;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    right: 0;
+}
+.offcanvas-container{
+    background: #fff;
+    width: 450px;
+    float: inline-end;
+    height: 100%;
+    padding: 20px;
+    z-index: 99;
+}
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.quantity-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.quantity-btn:hover {
+    background-color: #f8f9fa;
+}
+
+.quantity {
+    width: 40px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.coupon-section {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+.coupon-section h5 {
+    margin-bottom: 0.75rem;
+    color: #212529;
+}
+
+.coupon-input {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.coupon-input input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.apply-coupon {
+    padding: 0.5rem 1rem;
+    background-color: #fdc651;
+    color: #212529;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.apply-coupon:hover {
+    background-color: #f5b73d;
+}
+
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #eee;
+}
+
+.discount-row {
+    color: #28a745; 
+}
+
+.total-row {
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: none;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0;
+}
+
+.cart-badge{
+      width: 20px;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 50px;
+    height: 20px;
+    display: flex;
+    position: absolute;
+    top: -11px;
+    right: -7px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 400px) {
+    .cart-item {
+        flex-direction: column;
+    }
+    
+    .item-actions {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 0.5rem;
+    }
+    
+    .coupon-input {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+  .card-img-top {
+    height: 150px;
+  }
+
+  .pagination button {
+    padding: 0.4rem 0.8rem;
+    margin: 0.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .cart-item {
+    flex-direction: column;
+  }
+
+  .item-actions {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+
+  .coupon-input {
+    flex-direction: column;
+  }
+}
+
+.static-page-container {
+  min-height: calc(100vh - 120px);
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: rgba(148, 87, 246, 0.1);
+  color: #9457f6;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+  border-color: rgba(148, 87, 246, 0.25);
+}
+
+.form-control:focus {
+  border-color: #9457f6;
+  box-shadow: 0 0 0 0.25rem rgba(148, 87, 246, 0.25);
+}
+
+.social-icons a {
+  font-size: 1.5rem;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #9457f6 !important;
+}
+
