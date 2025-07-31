@@ -78,6 +78,26 @@ export const getProductsByCategory = createAsyncThunk<
   }
 });
 
-
-
-
+// search products
+export const searchProducts = createAsyncThunk<
+  { products: Product[]; total: number },
+  { query: string },
+  { rejectValue: string }
+>(
+  "products/searchProducts",
+  async ({ query }, { rejectWithValue }) => {
+    try {
+      const response = await fetch(
+        `https://dummyjson.com/products/search?q=${encodeURIComponent(query)}`
+      );
+      if (!response.ok) throw new Error("Failed to fetch search results!");
+      const data = await response.json();
+      return {
+        products: data.products,
+        total: data.total,
+      };
+    } catch (err: any) {
+      return rejectWithValue(err.message);
+    }
+  }
+);

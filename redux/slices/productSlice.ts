@@ -4,6 +4,7 @@ import {
   getCategoryList,
   getProductsByCategory,
   getSingleProduct,
+  searchProducts,
 } from "../thunk/productThunk";
 
 export interface Product {
@@ -41,6 +42,10 @@ interface ProductState {
   categoryLoading: boolean;
   error: string | null;
   total: number;
+  searchResults: Product[];
+  searchLoading: boolean;
+  searchError: string | null;
+  searchTotal: number;
 }
 
 const initialState: ProductState = {
@@ -53,12 +58,23 @@ const initialState: ProductState = {
   categoryLoading: false,
   error: null,
   total: 0,
+   searchResults: [],
+  searchLoading: false,
+  searchError: null,
+  searchTotal: 0,
 };
 
 const productSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+     clearSearchResults(state) {
+      state.searchResults = [];
+      state.searchError = null;
+      state.searchLoading = false;
+      state.searchTotal = 0;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // get all products
@@ -116,8 +132,24 @@ const productSlice = createSlice({
       .addCase(getProductsByCategory.rejected, (state, action) => {
         state.productCategoryLoading = false;
         state.error = action.payload ?? "Something went wrong";
+      })
+
+       // search case
+      .addCase(searchProducts.pending, (state) => {
+        state.searchLoading = true;
+        state.searchError = null;
+      })
+      .addCase(searchProducts.fulfilled, (state, action) => {
+        state.searchLoading = false;
+        state.searchResults = action.payload.products;
+        state.searchTotal = action.payload.total;
+      })
+      .addCase(searchProducts.rejected, (state, action) => {
+        state.searchLoading = false;
+        state.searchError = action.payload ?? "Something went wrong";
       });
   },
 });
 
+export const { clearSearchResults } = productSlice.actions;
 export default productSlice.reducer;

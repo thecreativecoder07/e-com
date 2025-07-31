@@ -1,30 +1,58 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { getAllProducts } from "../../redux/thunk/productThunk";
+import { getAllProducts, searchProducts } from "../../redux/thunk/productThunk";
 import LoadingSpinner from "@/utils/loadingSpinner";
+import ProductCard from "./productCard";
 
-const ProductCard = React.lazy(() => import("./productCard"));
 
 const Product: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+
   const dispatch = useDispatch<AppDispatch>();
-  const { products, total, productLoading, error } = useSelector(
-    (state: RootState) => state.products
-  );
+
+  const {
+    products,
+    total,
+    productLoading,
+    error,
+    searchResults,
+    searchLoading,
+    searchError,
+  } = useSelector((state: RootState) => state.products);
 
   useEffect(() => {
-    const skip = (currentPage - 1) * itemsPerPage;
-    dispatch(getAllProducts({ limit: itemsPerPage, skip }));
-  }, [currentPage, dispatch]);
+    if (debouncedQuery.trim() === "") {
+      const skip = (currentPage - 1) * itemsPerPage;
+      dispatch(getAllProducts({ limit: itemsPerPage, skip }));
+    }
+  }, [currentPage, debouncedQuery, dispatch]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(searchQuery);
+    }, 500);
+
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
+  useEffect(() => {
+    if (debouncedQuery.trim() !== "") {
+      dispatch(searchProducts({ query: debouncedQuery }));
+    }
+  }, [debouncedQuery, dispatch]);
 
   const totalPages = Math.ceil(total / itemsPerPage);
 
   const renderPagination = () => {
+    if (debouncedQuery.trim() !== "") return null;
+
     const pageButtons = [];
     let startPage = 1;
 
@@ -75,22 +103,39 @@ const Product: React.FC = () => {
     );
   };
 
+  const productsToShow = debouncedQuery.trim() !== "" ? searchResults : products;
+  const isLoading = debouncedQuery.trim() !== "" ? searchLoading : productLoading;
+  const loadError = debouncedQuery.trim() !== "" ? searchError : error;
+
   return (
     <div className="container-lg py-5">
-      <div className="text-center mb-5">
+      <div className="text-center mb-4">
         <h2 className="display-5 fw-bold">All Products</h2>
         <p className="text-muted">Discover our premium collection</p>
+
+        {/* Search input */}
+        <div className="d-flex justify-content-center mb-4">
+          <input
+            type="search"
+            className="form-control"
+            placeholder="Search products..."
+            style={{ maxWidth: "350px" }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
       </div>
 
-      {productLoading ? (
+      {isLoading ? (
         <LoadingSpinner />
-      ) : error ? (
-        <div className="alert alert-danger text-center">Failed to load products.</div>
+      ) : loadError ? (
+        <div className="alert alert-danger text-center">{loadError}</div>
+      ) : productsToShow.length === 0 ? (
+        <div className="alert alert-info text-center">No products found.</div>
       ) : (
         <>
-          <Suspense fallback={<LoadingSpinner />}>
             <div className="row g-4">
-              {products.map((product: any) => (
+              {productsToShow.map((product: any) => (
                 <div
                   className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 product-card"
                   key={product.id}
@@ -108,7 +153,6 @@ const Product: React.FC = () => {
                 </div>
               ))}
             </div>
-          </Suspense>
           {renderPagination()}
         </>
       )}
