@@ -32,6 +32,9 @@ const ProductByCategory: React.FC<ProductByCategoryPageProps> = ({ products }) =
       </Head>
       <Header />
       <div className="container-lg py-5">
+         <div className="text-center mb-4">
+        <h2 className="display-5 fw-bold">{products[0].category}</h2>
+        </div>
         <div className="row g-4">
           {products.map((product) => (
             <div

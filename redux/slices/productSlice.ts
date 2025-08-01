@@ -4,6 +4,7 @@ import {
   getCategoryList,
   getProductsByCategory,
   getSingleProduct,
+  getSortedProducts,
   searchProducts,
 } from "../thunk/productThunk";
 
@@ -88,6 +89,21 @@ const productSlice = createSlice({
         state.total = action.payload.total;
       })
       .addCase(getAllProducts.rejected, (state, action) => {
+        state.productLoading = false;
+        state.error = action.payload ?? "Something went wrong";
+      })
+
+       // get sorted products
+      .addCase(getSortedProducts.pending, (state) => {
+        state.productLoading = true;
+        state.error = null;
+      })
+      .addCase(getSortedProducts.fulfilled, (state, action) => {
+        state.productLoading = false;
+        state.products = action.payload.products;
+        state.total = action.payload.total;
+      })
+      .addCase(getSortedProducts.rejected, (state, action) => {
         state.productLoading = false;
         state.error = action.payload ?? "Something went wrong";
       })

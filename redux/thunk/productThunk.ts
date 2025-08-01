@@ -23,6 +23,30 @@ export const getAllProducts = createAsyncThunk<
   }
 });
 
+
+// get sorted products data
+export const getSortedProducts = createAsyncThunk<
+  { products: Product[]; total: number },
+  { title: string; order: string },
+  { rejectValue: string }
+>("products/getSortedProducts", async ({ title, order }, { rejectWithValue }) => {
+  try {
+    const response = await fetch(
+      `https://dummyjson.com/products?sortBy=${title}&order=${order}`
+    );
+    if (!response.ok) throw new Error("Failed to fetch products!");
+    const data = await response.json();
+    return {
+      products: data?.products,
+      total: data?.total,
+    };
+  } catch (err: any) {
+    return rejectWithValue(err.message);
+  }
+});
+
+
+
 // get a single product data
 export const getSingleProduct = createAsyncThunk<
   Product, 

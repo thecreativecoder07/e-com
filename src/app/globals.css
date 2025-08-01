@@ -668,7 +668,24 @@ button svg {
 }
 
 .accordion-body-custom.open {
-  max-height: 500px; /* large enough to show content */
+  max-height: 500px;
   padding: 1rem 1.25rem;
 }
 
+.filter-list{
+  position: absolute;
+  top: 50px;
+  right: 0;
+  border-radius: 10px 0 10px 10px ;
+  width: 150px;
+  background: #bcbcbc;
+  color: black;
+  list-style: none;
+  padding: 15px 10px;
+  z-index: 99;
+}
+.filter-list li:hover{
+ background: white;
+ border-radius: 5px;
+ cursor: pointer;
+}
